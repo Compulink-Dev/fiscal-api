@@ -100,6 +100,205 @@ class FiscalService {
     // Implement actual currency validation
     return /^[A-Z]{3}$/.test(currency);
   }
+
+  // ... (previous code)
+
+  static async calculateFiscalCounters(deviceId, fiscalDayNo) {
+    const receipts = await Receipt.find({
+      device: deviceId,
+      fiscalDayNo
+    });
+
+    const counters = {
+      byTax: {},       // For tax-based counters
+      byMoneyType: {}  // For payment method counters
+    };
+
+    receipts.forEach(receipt => {
+      // Process tax-based counters
+      receipt.taxes.forEach(tax => {
+        const taxKey = `${tax.taxId}_${tax.taxPercent || 'exempt'}_${receipt.currency}`;
+        
+        if (!counters.byTax[taxKey]) {
+          counters.byTax[taxKey] = {
+            taxId: tax.taxId,
+            taxPercent: tax.taxPercent,
+            currency: receipt.currency,
+            saleAmount: 0,
+            saleTaxAmount: 0,
+            creditNoteAmount: 0,
+            creditNoteTaxAmount: 0,
+            debitNoteAmount: 0,
+            debitNoteTaxAmount: 0
+          };
+        }
+
+        const counter = counters.byTax[taxKey];
+        
+        switch (receipt.receiptType) {
+          case 'FiscalInvoice':
+            counter.saleAmount += tax.salesAmountWithTax;
+            counter.saleTaxAmount += tax.taxAmount;
+            break;
+          case 'CreditNote':
+            counter.creditNoteAmount += tax.salesAmountWithTax;
+            counter.creditNoteTaxAmount += tax.taxAmount;
+            break;
+          case 'DebitNote':
+            counter.debitNoteAmount += tax.salesAmountWithTax;
+            counter.debitNoteTaxAmount += tax.taxAmount;
+            break;
+        }
+      });
+
+      // Process payment method counters
+      receipt.payments.forEach(payment => {
+        const paymentKey = `${payment.moneyTypeCode}_${receipt.currency}`;
+        
+        if (!counters.byMoneyType[paymentKey]) {
+          counters.byMoneyType[paymentKey] = {
+            moneyType: payment.moneyTypeCode,
+            currency: receipt.currency,
+            amount: 0
+          };
+        }
+        
+        counters.byMoneyType[paymentKey].amount += payment.paymentAmount;
+      });
+    });
+
+    // Convert to ZIMRA expected format
+    const zimraCounters = [];
+
+    // Add tax-based counters
+    Object.values(counters.byTax).forEach(counter => {
+      if (counter.saleAmount !== 0 || counter.saleTaxAmount !== 0) {
+        zimraCounters.push({
+          fiscalCounterType: 'SaleByTax',
+          fiscalCounterCurrency: counter.currency,
+          fiscalCounterTaxID: counter.taxId,
+          fiscalCounterTaxPercent: counter.taxPercent,
+          fiscalCounterValue: counter.saleAmount
+        });
+
+        zimraCounters.push({
+          fiscalCounterType: 'SaleTaxByTax',
+          fiscalCounterCurrency: counter.currency,
+          fiscalCounterTaxID: counter.taxId,
+          fiscalCounterTaxPercent: counter.taxPercent,
+          fiscalCounterValue: counter.saleTaxAmount
+        });
+      }
+
+      if (counter.creditNoteAmount !== 0 || counter.creditNoteTaxAmount !== 0) {
+        zimraCounters.push({
+          fiscalCounterType: 'CreditNoteByTax',
+          fiscalCounterCurrency: counter.currency,
+          fiscalCounterTaxID: counter.taxId,
+          fiscalCounterTaxPercent: counter.taxPercent,
+          fiscalCounterValue: counter.creditNoteAmount
+        });
+
+        zimraCounters.push({
+          fiscalCounterType: 'CreditNoteTaxByTax',
+          fiscalCounterCurrency: counter.currency,
+          fiscalCounterTaxID: counter.taxId,
+          fiscalCounterTaxPercent: counter.taxPercent,
+          fiscalCounterValue: counter.creditNoteTaxAmount
+        });
+      }
+
+      if (counter.debitNoteAmount !== 0 || counter.debitNoteTaxAmount !== 0) {
+        zimraCounters.push({
+          fiscalCounterType: 'DebitNoteByTax',
+          fiscalCounterCurrency: counter.currency,
+          fiscalCounterTaxID: counter.taxId,
+          fiscalCounterTaxPercent: counter.taxPercent,
+          fiscalCounterValue: counter.debitNoteAmount
+        });
+
+        zimraCounters.push({
+          fiscalCounterType: 'DebitNoteTaxByTax',
+          fiscalCounterCurrency: counter.currency,
+          fiscalCounterTaxID: counter.taxId,
+          fiscalCounterTaxPercent: counter.taxPercent,
+          fiscalCounterValue: counter.debitNoteTaxAmount
+        });
+      }
+    });
+
+    // Add payment method counters
+    Object.values(counters.byMoneyType).forEach(counter => {
+      zimraCounters.push({
+        fiscalCounterType: 'BalanceByMoneyType',
+        fiscalCounterCurrency: counter.currency,
+        fiscalCounterMoneyType: counter.moneyType,
+        fiscalCounterValue: counter.amount
+      });
+    });
+
+    return zimraCounters;
+  }
+
+  static async generateFiscalDaySignature(device, counters) {
+    const signatureData = {
+      deviceID: device.deviceId,
+      fiscalDayNo: device.currentFiscalDay.number,
+      fiscalDayDate: device.currentFiscalDay.openedAt.toISOString().split('T')[0],
+      fiscalDayCounters: counters
+    };
+
+    const hash = crypto.createHash('sha256')
+      .update(JSON.stringify(signatureData))
+      .digest('base64');
+    
+    const signature = crypto.createSign('SHA256')
+      .update(hash)
+      .sign(device.privateKey, 'base64');
+
+    return {
+      hash,
+      signature
+    };
+  }
+
+  static async validateFiscalDayClosure(deviceId, fiscalDayNo) {
+    const receipts = await Receipt.find({
+      device: deviceId,
+      fiscalDayNo
+    });
+
+    // Check for validation errors that would prevent closure
+    const hasRedErrors = receipts.some(r => 
+      r.validationErrors.some(e => e.severity === 'Red')
+    );
+
+    const hasGreyErrors = receipts.some(r => 
+      r.validationErrors.some(e => e.severity === 'Grey')
+    );
+
+    if (hasRedErrors) {
+      throw new Error('Cannot close fiscal day with "Red" validation errors');
+    }
+
+    if (hasGreyErrors) {
+      throw new Error('Cannot close fiscal day with "Grey" validation errors (missing previous receipts)');
+    }
+
+    // Verify receipt sequence
+    const receiptCounters = receipts.map(r => r.counter).sort((a, b) => a - b);
+    for (let i = 0; i < receiptCounters.length; i++) {
+      if (receiptCounters[i] !== i + 1) {
+        throw new Error(`Missing receipt in sequence. Expected ${i + 1}, found ${receiptCounters[i]}`);
+      }
+    }
+
+    return true;
+  }
 }
 
+
+
+
 module.exports = FiscalService;
+

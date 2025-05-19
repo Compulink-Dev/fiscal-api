@@ -264,3 +264,85 @@ function calculateFiscalCounters(receipts) {
     });
   });
 }
+
+// ... (previous code)
+
+exports.processOfflineBatch = async (req, res, next) => {
+  try {
+    const { companyId } = req.user;
+    const { file } = req;
+
+    if (!file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const filePath = file.path;
+    const result = await OfflineService.processOfflineFile(filePath);
+
+    // Clean up the uploaded file
+    fs.unlinkSync(filePath);
+
+    res.json({
+      message: 'Offline batch processed successfully',
+      result
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.generateOfflineFile = async (req, res, next) => {
+  try {
+    const { companyId } = req.user;
+    const { deviceId, fiscalDayNo } = req.params;
+
+    const device = await Device.findOne({ 
+      _id: deviceId,
+      company: companyId 
+    });
+
+    if (!device) {
+      return res.status(404).json({ message: 'Device not found' });
+    }
+
+    const { filePath, fileContent } = await OfflineService.generateOfflineFile(deviceId, fiscalDayNo);
+
+    res.download(filePath, `offline_batch_${deviceId}_${fiscalDayNo}.json`, (err) => {
+      if (err) {
+        console.error('Error sending file:', err);
+      }
+      // Clean up the temporary file
+      fs.unlinkSync(filePath);
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.syncOfflineReceipts = async (req, res, next) => {
+  try {
+    const { companyId } = req.user;
+    const { deviceId } = req.params;
+
+    const device = await Device.findOne({ 
+      _id: deviceId,
+      company: companyId 
+    });
+
+    if (!device) {
+      return res.status(404).json({ message: 'Device not found' });
+    }
+
+    const result = await OfflineService.syncOfflineReceipts(deviceId);
+
+    res.json({
+      message: 'Offline receipts synchronized successfully',
+      result
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};

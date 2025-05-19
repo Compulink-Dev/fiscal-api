@@ -76,6 +76,63 @@ class ZimraApiService {
     }
   }
 
+  // ... (previous code)
+
+  async getFileStatus(operationId, fiscalDayNo) {
+    try {
+      const response = await this.axiosInstance.post('/getFileStatus', {
+        deviceID: this.device.deviceId,
+        operationId,
+        fiscalDayNo
+      }, {
+        httpsAgent: this.getHttpsAgent()
+      });
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  async getConfig() {
+    try {
+      const response = await this.axiosInstance.post('/getConfig', {
+        deviceID: this.device.deviceId
+      }, {
+        httpsAgent: this.getHttpsAgent()
+      });
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  async ping() {
+    try {
+      const response = await this.axiosInstance.post('/ping', {
+        deviceID: this.device.deviceId
+      }, {
+        httpsAgent: this.getHttpsAgent()
+      });
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  async issueCertificate(csr) {
+    try {
+      const response = await this.axiosInstance.post('/issueCertificate', {
+        deviceID: this.device.deviceId,
+        certificateRequest: csr
+      }, {
+        httpsAgent: this.getHttpsAgent()
+      });
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
   getHttpsAgent() {
     // Implement HTTPS agent with device certificate
     // This is a simplified version - actual implementation needs proper cert handling
