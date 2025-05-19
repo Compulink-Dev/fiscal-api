@@ -1,40 +1,92 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const helmet = require('helmet');
+const path = require('path');
 const cors = require('cors');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
+const dotenv = require('dotenv');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
+const colors = require('colors');
+const fileupload = require('express-fileupload');
 const errorHandler = require('./middleware/errorHandler');
-const authRoutes = require('./routes/authRoutes');
-const companyRoutes = require('./routes/companyRoutes');
-const deviceRoutes = require('./routes/deviceRoutes');
-const receiptRoutes = require('./routes/receiptRoutes');
-const { MONGO_URI } = require('./config/db');
+const connectDB = require('./config/db');
+
+// Load env vars
+dotenv.config({ path: './config/config.env' });
+
+// Connect to database
+connectDB();
+
+// Route files
+const auth = require('./routes/authRoutes');
+const companies = require('./routes/companyRoutes');
+const devices = require('./routes/deviceRoutes');
+const receipts = require('./routes/receiptRoutes');
 
 const app = express();
 
-// Database connection
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+// Body parser
+app.use(express.json());
 
-// Middleware
+// Cookie parser
+app.use(cookieParser());
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
+// File uploading
+app.use(fileupload());
+
+// Sanitize data
+app.use(mongoSanitize());
+
+// Set security headers
 app.use(helmet());
+
+// Prevent XSS attacks
+app.use(xss());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
+
+// Enable CORS
 app.use(cors());
-app.use(bodyParser.json());
-app.use(morgan('combined'));
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/companies', companyRoutes);
-app.use('/api/devices', deviceRoutes);
-app.use('/api/receipts', receiptRoutes);
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Error handling
+// Mount routers
+app.use('/api/v1/auth', auth);
+app.use('/api/v1/companies', companies);
+app.use('/api/v1/devices', devices);
+app.use('/api/v1/receipts', receipts);
+
 app.use(errorHandler);
 
-module.exports = app;
+const PORT = process.env.PORT || 5000;
+
+const server = app.listen(
+  PORT,
+  console.log(
+    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+  )
+);
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`.red);
+  // Close server & exit process
+  server.close(() => process.exit(1));
+});
