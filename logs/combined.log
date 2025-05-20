@@ -218,3 +218,23 @@
     at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
     at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
     at Function.handle (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:186:3)
+2025-05-20 15:00:30 [[31merror[39m]: MongoServerError: E11000 duplicate key error collection: zimra-fdms.companies index: tin_1 dup key: { tin: "123456789" }
+    at InsertOneOperation.execute (/home/kronos/Projects/fiscal-api/node_modules/mongodb/lib/operations/insert.js:51:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async tryOperation (/home/kronos/Projects/fiscal-api/node_modules/mongodb/lib/operations/execute_operation.js:207:20)
+    at async executeOperation (/home/kronos/Projects/fiscal-api/node_modules/mongodb/lib/operations/execute_operation.js:75:16)
+    at async Collection.insertOne (/home/kronos/Projects/fiscal-api/node_modules/mongodb/lib/collection.js:157:16)
+2025-05-20 15:03:15 [[31merror[39m]: ReferenceError: compnay is not defined
+    at /home/kronos/Projects/fiscal-api/src/controllers/companyController.js:10:24
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-20 15:03:59 [[31merror[39m]: Error: Not authorized to access this route
+    at exports.protect (/home/kronos/Projects/fiscal-api/src/middleware/auth.js:21:17)
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/lib/route.js:157:13)
+    at Route.dispatch (/home/kronos/Projects/fiscal-api/node_modules/router/lib/route.js:117:3)
+    at handle (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:435:11)
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:295:15
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at Function.handle (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:186:3)

@@ -24,9 +24,12 @@ router.use('/:companyId/devices', deviceRouter);
 router
   .route('/')
   .get(
+    protect,
+    authorize('admin'),
+    advancedResults(Company),
     getCompanies
   )
-  .post(createCompany);
+  .post(protect, authorize('admin'), createCompany);
 
 router
   .route('/:id')
