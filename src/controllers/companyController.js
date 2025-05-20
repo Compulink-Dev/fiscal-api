@@ -6,7 +6,8 @@ const asyncHandler = require('../middleware/async');
 // @route   GET /api/companies
 // @access  Private/Admin
 exports.getCompanies = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+  const company = await Company.find()
+  res.status(200).json(company);
 });
 
 // @desc    Get single company
