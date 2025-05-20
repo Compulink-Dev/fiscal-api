@@ -1,9 +1,18 @@
 const { logError } = require('../utils/logger');
 
 module.exports = (err, req, res, next) => {
-  logError(err.stack || err.message);
+  // Safely attempt to log the error
+  try {
+    if (logError) {
+      logError(err.stack || err.message);
+    } else {
+      console.error('Error:', err.stack || err.message);
+    }
+  } catch (loggingError) {
+    console.error('Failed to log error:', loggingError);
+  }
 
-  // Handle ZIMRA API errors
+  // Handle specific error types
   if (err.message.includes('ZIMRA API Error')) {
     return res.status(502).json({
       error: 'ZIMRA_API_ERROR',
@@ -11,7 +20,6 @@ module.exports = (err, req, res, next) => {
     });
   }
 
-  // Handle validation errors
   if (err.name === 'ValidationError') {
     return res.status(400).json({
       error: 'VALIDATION_ERROR',
@@ -19,7 +27,6 @@ module.exports = (err, req, res, next) => {
     });
   }
 
-  // Handle JWT errors
   if (err.name === 'JsonWebTokenError') {
     return res.status(401).json({
       error: 'AUTHENTICATION_ERROR',
@@ -27,7 +34,6 @@ module.exports = (err, req, res, next) => {
     });
   }
 
-  // Handle MongoDB duplicate key errors
   if (err.code === 11000) {
     const field = Object.keys(err.keyValue)[0];
     return res.status(400).json({
@@ -38,8 +44,8 @@ module.exports = (err, req, res, next) => {
   }
 
   // Default error handler
-  res.status(500).json({
+  res.status(err.statusCode || 500).json({
     error: 'SERVER_ERROR',
-    message: 'An unexpected error occurred'
+    message: err.message || 'An unexpected error occurred'
   });
 };

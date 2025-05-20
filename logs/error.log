@@ -1,0 +1,198 @@
+2025-05-20 13:24:40 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:24:40 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:29:26 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:29:26 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:32:39 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:32:39 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:44:17 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:44:18 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:46:13 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:46:14 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:46:30 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/xss-clean/lib/index.js:8:30
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:531:6)
+    at xXssProtectionMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:311:3)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:529:6)
+    at xPoweredByMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:304:3)
+2025-05-20 13:46:31 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/xss-clean/lib/index.js:8:30
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:531:6)
+    at xXssProtectionMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:311:3)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:529:6)
+    at xPoweredByMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:304:3)
+2025-05-20 13:46:44 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/xss-clean/lib/index.js:8:30
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:531:6)
+    at xXssProtectionMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:311:3)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:529:6)
+    at xPoweredByMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:304:3)
+2025-05-20 13:46:44 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/xss-clean/lib/index.js:8:30
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:531:6)
+    at xXssProtectionMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:311:3)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:529:6)
+    at xPoweredByMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:304:3)
+2025-05-20 13:48:11 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:48:11 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:113:18
+    at Array.forEach (<anonymous>)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-mongo-sanitize/index.js:110:44
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at /home/kronos/Projects/fiscal-api/node_modules/express-fileupload/lib/index.js:37:14
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+2025-05-20 13:49:48 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/xss-clean/lib/index.js:8:30
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:531:6)
+    at xXssProtectionMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:311:3)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:529:6)
+    at xPoweredByMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:304:3)
+2025-05-20 13:49:48 [[31merror[39m]: TypeError: Cannot set property query of #<IncomingMessage> which has only a getter
+    at /home/kronos/Projects/fiscal-api/node_modules/xss-clean/lib/index.js:8:30
+    at Layer.handleRequest (/home/kronos/Projects/fiscal-api/node_modules/router/lib/layer.js:152:17)
+    at trimPrefix (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:342:13)
+    at /home/kronos/Projects/fiscal-api/node_modules/router/index.js:297:9
+    at processParams (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:582:12)
+    at next (/home/kronos/Projects/fiscal-api/node_modules/router/index.js:291:5)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:531:6)
+    at xXssProtectionMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:311:3)
+    at internalNext (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:529:6)
+    at xPoweredByMiddleware (/home/kronos/Projects/fiscal-api/node_modules/helmet/index.cjs:304:3)

@@ -15,7 +15,7 @@ const errorHandler = require('./middleware/errorHandler');
 const connectDB = require('./config/db');
 
 // Load env vars
-dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: '.env' });
 
 // Connect to database
 connectDB();
@@ -25,53 +25,81 @@ const auth = require('./routes/authRoutes');
 const companies = require('./routes/companyRoutes');
 const devices = require('./routes/deviceRoutes');
 const receipts = require('./routes/receiptRoutes');
+const inventory = require('./routes/inventoryRoutes')
+const hash = require('./routes/hashRoutes')
+const test = require('./routes/test')
 
 const app = express();
 
-// Body parser
-app.use(express.json());
+// Update your middleware stack to this order:
 
-// Cookie parser
-app.use(cookieParser());
-
-// Dev logging middleware
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
-
-// File uploading
-app.use(fileupload());
-
-// Sanitize data
-app.use(mongoSanitize());
-
-// Set security headers
+// 1. Security headers first
 app.use(helmet());
 
-// Prevent XSS attacks
-app.use(xss());
+// 2. CORS before other middleware
+app.use(cors());
+
+// 3. Request parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// 4. File upload (before sanitization)
+app.use(fileupload({
+  useTempFiles: true,
+  tempFileDir: '/tmp/'
+}));
+
+// 5. Custom sanitization (modified version)
+app.use((req, res, next) => {
+  // Create sanitized copies instead of modifying directly
+  if (req.body) {
+    req.sanitizedBody = mongoSanitize.sanitize({ ...req.body });
+  }
+  if (req.params) {
+    req.sanitizedParams = mongoSanitize.sanitize({ ...req.params });
+  }
+  next();
+});
+
+// 6. XSS protection (alternative approach)
+app.use((req, res, next) => {
+  // Custom XSS cleaning logic
+  const clean = (obj) => {
+    if (!obj) return;
+    Object.keys(obj).forEach(key => {
+      if (typeof obj[key] === 'string') {
+        obj[key] = obj[key].replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      } else if (typeof obj[key] === 'object') {
+        clean(obj[key]);
+      }
+    });
+  };
+  
+  if (req.body) clean(req.body);
+  if (req.params) clean(req.params);
+  next();
+});
+
+// 7. Other middleware
+app.use(limiter);
+app.use(hpp());
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 mins
   max: 100
 });
-app.use(limiter);
-
-// Prevent http param pollution
-app.use(hpp());
-
-// Enable CORS
-app.use(cors());
-
-// Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Mount routers
-app.use('/api/v1/auth', auth);
-app.use('/api/v1/companies', companies);
-app.use('/api/v1/devices', devices);
-app.use('/api/v1/receipts', receipts);
+app.use('/api/auth', auth);
+app.use('/api/companies', companies);
+app.use('/api/devices', devices);
+app.use('/api/receipts', receipts);
+app.use('/api/hash', hash);
+app.use('/api/inventory', inventory);
+app.use('/test', test)
 
 app.use(errorHandler);
 

@@ -16,8 +16,8 @@ const {
   updatePasswordValidator,
   forgotPasswordValidator,
   resetPasswordValidator
-} = require('../validators/userValidators');
-const { validate } = require('../middleware/validate'); // Middleware for validating requests
+} = require('../utils/userValidator');
+const { validate } = require('../utils/validators'); // Middleware for validating requests
 
 const router = express.Router();
 

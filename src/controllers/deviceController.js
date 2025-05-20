@@ -1,10 +1,10 @@
 const Device = require('../models/Device');
-const { generateCertificate } = require('../services/certifivcteService');
-const { generateSignature, verifySignature } = require('../services/signatureService');
-const bcrypt = require('bcrypt');
+const { generateCertificate } = require('../services/certificateService');
+const crypto = require('crypto');
+
 
 // 3.1 verifyTaxpayerInformation
-exports.verifyTaxpayerInformation = async (req, res) => {
+exports.verifyTaxpayerInformation = async (req, res,next) => {
   try {
     const { deviceID, activationKey, deviceSerialNo } = req.body;
     
@@ -75,7 +75,8 @@ exports.registerDevice = async (req, res, next) => {
   try {
     const { deviceID, activationKey, certificateRequest } = req.body;
     
-    const device = await Device.findOne({ deviceID });
+    const device = await Device.findOne({ deviceId: deviceID });
+
     if (!device) {
       return res.status(404).json({
         type: 'https://tools.ietf.org/html/rfc7231#section-6.5.4',
@@ -163,6 +164,73 @@ exports.getConfig = async (req, res, next) => {
   }
 };
 
+//3.5 getStatus
+exports.getStatus = async (req, res, next) => {
+  try {
+    const { deviceID } = req.params;
+    const device = await Device.findOne({ deviceID });
+    
+    if (!device) {
+      return res.status(404).json({
+        type: 'https://tools.ietf.org/html/rfc7231#section-6.5.4',
+        title: 'Device not found',
+        status: 404,
+        errorCode: 'DEV01'
+      });
+    }
+    
+    res.json({
+      operationID: crypto.randomBytes(30).toString('hex'),
+      status: device.status,
+      lastCommunication: device.lastCommunication
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+//3.6 ping
+exports.ping = async (req, res, next) => {
+  try {
+    const { deviceID } = req.params;
+    const device = await Device.findOne({ deviceID });
+    
+    if (!device) {
+      return res.status(404).json({
+        type: 'https://tools.ietf.org/html/rfc7231#section-6.5.4',
+        title: 'Device not found',
+        status: 404,
+        errorCode: 'DEV01'
+      });
+    }
+    
+    // Update last communication time
+    device.lastCommunication = new Date();
+    await device.save();
+    
+    res.json({
+      operationID: crypto.randomBytes(30).toString('hex'),
+      message: 'Pong',
+      serverTime: new Date()
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+//3.7 getServerCertificate
+exports.getServerCertificate = async (req, res, next) => {
+  try {
+    const result = await require('../services/certificateService').getServerCertificate();
+    res.json({
+      operationID: crypto.randomBytes(30).toString('hex'),
+      ...result
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Helper function to get applicable taxes
 async function getApplicableTaxes() {
   // In a real implementation, this would query a tax database
@@ -189,3 +257,7 @@ async function getApplicableTaxes() {
     }
   ];
 }
+
+
+
+

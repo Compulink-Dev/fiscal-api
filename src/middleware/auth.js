@@ -48,6 +48,19 @@ exports.authorize = (...roles) => {
   };
 };
 
+exports.authenticate = async (req, res, next) => {
+  // Your authentication logic
+  if (!roles.includes(req.user.role)) {
+    return next(
+      new ErrorResponse(
+        `User role ${req.user.role} is not authorized to access this route`,
+        403
+      )
+    );
+  }
+  next();
+};
+
 // Device authentication middleware
 exports.deviceAuth = async (req, res, next) => {
   let token;
