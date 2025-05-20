@@ -81,17 +81,19 @@ app.use((req, res, next) => {
   next();
 });
 
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100
+});
+
 // 7. Other middleware
 app.use(limiter);
 app.use(hpp());
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 mins
-  max: 100
-});
+
 // Mount routers
 app.use('/api/auth', auth);
 app.use('/api/companies', companies);
