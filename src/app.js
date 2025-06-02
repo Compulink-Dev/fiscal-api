@@ -28,6 +28,7 @@ const receipts = require('./routes/receiptRoutes');
 const inventory = require('./routes/inventoryRoutes')
 const hash = require('./routes/hashRoutes')
 const test = require('./routes/test')
+const submit = require('./routes/submitRoutes')
 
 const app = express();
 
@@ -100,6 +101,7 @@ app.use('/api/companies', companies);
 app.use('/api/devices', devices);
 app.use('/api/receipts', receipts);
 app.use('/api/hash', hash);
+app.use('/api/submit', submit);
 app.use('/api/inventory', inventory);
 app.use('/test', test)
 

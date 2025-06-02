@@ -61,4 +61,6 @@ const ReceiptSchema = new Schema({
   previousReceiptHash: { type: String }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Receipt', ReceiptSchema);
+module.exports = (connection) => {
+  return connection.model('Receipt', ReceiptSchema);
+};

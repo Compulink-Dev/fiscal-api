@@ -3,7 +3,12 @@ const router = express.Router();
 const receiptController = require('../controllers/receiptController');
 const auth = require('../middleware/auth');
 const multer = require('multer');
+const tenantMiddleware = require('../middleware/tenantMiddleware');
 const upload = multer({ dest: 'temp/' });
+
+// Apply both auth and tenant middleware
+router.use(auth.protect);
+router.use(tenantMiddleware);
 
 // Online receipt submission
 router.post('/', auth.authenticate, receiptController.createReceipt);
